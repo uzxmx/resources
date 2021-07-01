@@ -16,3 +16,13 @@ convert input.png -transparent white output.png
 # If not perfectly white, use `-fuzz`
 convert input.png -fuzz XX% -transparent white output.png
 ```
+
+## Flip
+
+```
+# Flip up and down.
+convert -flip foo.png bar.png
+
+# Flip left and right.
+convert -flop foo.png bar.png
+```

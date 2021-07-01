@@ -111,3 +111,16 @@ docker pull gcr.azk8s.cn/google-containers/foo:v1.0.0
 docker pull quay.mirrors.ustc.edu.cn/coreos/etcd:v1.0.0
 docker pull quay.azk8s.cn/coreos/etcd:v1.0.0
 ```
+
+## Run an image
+
+```
+docker run -it --rm busybox:1.32.0 sh
+
+# Connect to host network. This only works on Linux. For docker on Mac, the
+# daemon actually runs in a VM, so the host is the VM host. For workaround, use
+# `host.docker.internal` DNS name to reach the Mac host.
+# For more info, please visit https://docs.docker.com/docker-for-mac/networking/
+docker run --rm --network host busybox:1.32.0 nc -zv localhost 80
+docker run --rm --network host busybox:1.32.0 nc -zv host.docker.internal 80
+```

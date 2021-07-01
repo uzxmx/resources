@@ -133,3 +133,15 @@ Then execute `startx` to go into GUI mode. To always go into gui mode after
 rebooting, do this: `sudo systemctl set-default graphical.target`.
 
 Ref: https://geekflare.com/centos-gui-mode/
+
+## Create a new user
+
+```
+adduser centos
+echo "centos ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers >/dev/null
+su - centos
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+echo YOUR_PUBLIC_KEY >>~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+```

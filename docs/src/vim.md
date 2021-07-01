@@ -143,3 +143,34 @@ We can use `CTRL-V` in insert mode to input special characters, e.g. `<TAB>`,
 `<CR>`.
 
 For more information, see `:help i_CTRL-V`.
+
+## Vimscript
+
+### command
+
+```
+command! CommandWithCapital set ft=json | let foo = &ft | echo foo
+
+command! -bang Format call s:format('json', <bang>0)
+```
+
+## Fugitive
+
+```
+0Glog
+```
+
+For sake of completeness, once you have the revisions loaded in your buffer, you can browse through them by opening the quickfix list
+
+:Glog -- %
+:copen
+Load the last 10 commits for the current file
+
+:Glog -10 -- %
+
+## Comment
+
+```
+# vim: commentstring=#\ %s
+```
+https://github.com/tpope/vim-commentary

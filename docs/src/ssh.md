@@ -117,3 +117,10 @@ autossh -M 20000 -f user@host -R REMOTE_PORT:localhost:22 -N
 
 Note: The remote ssh server must be configured with `GatewayPorts yes` when ssh
 client wants to bind to all remote interfaces.
+
+## Cheatsheet
+
+```
+# Forward traffic from local to remote.
+ssh user@host -L port:localhost:port
+```

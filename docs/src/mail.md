@@ -10,10 +10,12 @@ brew install msmtp
 ### Send a mail to a SMTP server (e.g. 163 mail)
 
 ```
+# We need to input some text, and then press `<Enter>` and `<CTRL-D>` to send.
 # This command will ask for password.
 msmtp -v --host="smtp.163.com" \
   --auth="on" --user="user@163.com" \
   --tls="on" --tls-starttls="on" \
+  --tls-certcheck=off \
   --from="user@163.com" \
   to-user@example.com
 

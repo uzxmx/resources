@@ -28,21 +28,31 @@ Ref: https://github.com/neoclide/coc.nvim/issues/124
 TODO
 We can create a custom configuration file at `<project-root-dir>/.vim/coc-settings.json`.
 
-## How to debug coc.nvim
+## How to develop or debug coc.nvim
+
+Based on commit `ba262ef03029c3fd6a5062bebce7d8553e3b1a1f`.
+
+### Build on file change
 
 ```
-cd <path-to-coc-nvim-root-directory>
-git checkout master
-# Watch typescript changes and compile automatically.
-npm run watch
+npm run build -- --watch
+# Or
+yarn build --watch
+```
+
+### Debug by log
+
+```
 export NVIM_COC_LOG_FILE=<path-to-log-file>
+# The default log level is `info`.
+export NVIM_COC_LOG_LEVEL=debug
 ```
 
-## How to debug eclipse.jdt.ls?
+Ref: https://github.com/neoclide/coc.nvim/wiki/Environment-variables#logger
 
-```
+### Show communication between coc.nvim and language server
 
-```
+Ref: https://github.com/neoclide/coc.nvim/wiki/Debug-language-server#using-output-channel
 
 ## How to debug kotlin-language-server?
 

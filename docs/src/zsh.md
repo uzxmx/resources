@@ -63,3 +63,7 @@ time (echo)
 ```
 
 Ref: https://unix.stackexchange.com/a/427377
+
+## Where are completion scripts stored?
+
+Execute `echo $fpath` to find.
