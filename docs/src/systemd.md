@@ -69,37 +69,18 @@ journalctl -k
 # Monitor new log messages
 journalctl -f
 journalctl -u <service-name> -f
-```
 
-# SysVInit
+# Show disk usage.
+journalctl --disk-usage
 
-```
-service --status-all
-```
+# Below is the way to clear all journals.
 
-According to ansible service module, init systems include BSD init, OpenRC, SysV, Solaris SMF, systemd, upstart.
-Ref: https://docs.ansible.com/ansible/latest/modules/service_module.html
+# This will archive all journals.
+# Old versions of journalctl may not support `--rotate` option.
+journalctl --rotate
+# This will delete all journal files older than 1 second.
+journalctl --vacuum-time=1s
 
-We can use `chkconfig` command to update and query runlevel information for
-system services.
-
-```
-chkconfig --list
-chkconfig --list nginx
-
-# Start nginx on boot
-chkconfig nginx off
-
-# Do not start nginx on boot
-chkconfig nginx off
-```
-
-Below are some useful commands about runlevel:
-
-```
-# Get current run level
-runlevel
-
-man runlevel
-man 7 runlevel
+# On CentOS, you can also do below to clear all the logs.
+rm -rf /run/log/journal/*
 ```
