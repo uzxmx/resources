@@ -74,7 +74,12 @@ SELECT * FROM pg_language;
 # Do not dump ownership and access grants.
 pg_dump -U user -d database -O -x >dump.sql
 
-# Only dump data.
+# Only Dump data as COPY statements for specific tables that match some patterns and schemas that is public.
+# Can be imported by `psql`. When importing, this dump method is usually faster than dumping as INSERT statements.
+pg_dump -U user -d database -t '^table_foo_prefix*' -t '^table_bar_prefix*' --data-only -n public >dump.sql
+
+# Only dump data as INSERT statements.
+# Can be imported by `psql`. When importing, this dump method may be slower than dumping as COPY statements.
 pg_dump -U user -d database --column-inserts --data-only >dump.sql
 
 # With create database statement.
@@ -85,6 +90,15 @@ pg_dump -U user -Fc myDB > myDB.dump
 
 # Restore with custom format.
 pg_restore -U user -d myDB myDB.dump
+```
+
+## Import sql file
+
+```
+# Stop on error. Without this, it may be hard to find the problem.
+psql -v ON_ERROR_STOP=1 -U username -d database <data.sql
+
+psql -v ON_ERROR_STOP=1 -U username -d database -f data.sql
 ```
 
 ## Stat
