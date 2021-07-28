@@ -257,3 +257,22 @@ Using Apple Configurator 2:
 1. Finally it could tell you an app already exists, but don’t worry — just be in a hurry to grab an .ipa using this path: `~/Library/Group\ Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches/Assets/TemporaryItems/MobileApps/`
 
 Ref: https://medium.com/xcnotes/how-to-download-ipa-from-app-store-43e04b3d0332
+
+## Brew failed after updating OSX to 11.5
+
+The error is:
+
+```
+Warning: Your CLT does not support macOS 11.5.
+It is either outdated or was modified.
+Please update your CLT or delete it if no updates are available.
+```
+
+Solution: just install brew again (it's safe to install again without uninstallation)
+
+Another possible solution:
+
+```
+sudo rm -rf /Library/Developer/CommandLineTools
+sudo xcode-select --install
+```
