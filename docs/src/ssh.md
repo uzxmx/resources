@@ -118,6 +118,29 @@ autossh -M 20000 -f user@host -R REMOTE_PORT:localhost:22 -N
 Note: The remote ssh server must be configured with `GatewayPorts yes` when ssh
 client wants to bind to all remote interfaces.
 
+## Connect to a private host through a bastion host
+
+* Using `ProxyJump` option or `-J` which is a shortcut.
+
+```
+ssh -J user@bastion-host user@target-host
+```
+
+* Using `ProxyCommand` option.
+
+```
+ssh -o ProxyCommand="ssh user@bastion-host -W %h:%p" user@target-host
+```
+
+Note:`ProxyJump` is a simplified way of `ProxyCommand`. `ProxyCommand` can also be
+used for other purposes.
+
+## Disable host key checking and do not add host key to `known_hosts` file
+
+```
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@host
+```
+
 ## Cheatsheet
 
 ```
