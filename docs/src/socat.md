@@ -33,6 +33,14 @@ As a shell command interpreter.
 
 ```
 socat - EXEC:bash
+
+```
+
+Accept connections at port 5000 as a shell command interpreter. Use `nc
+localhost 5000` or `socat - TCP:localhost:5000` to connect.
+
+```
+socat -v TCP-LISTEN:5000,fork,reuseaddr EXEC:bash
 ```
 
 Run a command with arguments. If the argument contains a colon, you must quote
