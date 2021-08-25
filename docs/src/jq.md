@@ -40,3 +40,24 @@ jq '.records | map(select(.name | contains("ba")))'
 ```
 
 Ref: https://github.com/stedolan/jq/wiki/Cookbook#filter-objects-based-on-the-contents-of-a-key
+
+## Edit JSON
+
+### Add field
+
+```
+echo '{"foo": 0}' | jq '. += {"bar": "baz"}'
+```
+
+### Update field
+
+```
+echo '{"foo": 0}' | jq '. += {"foo": 1}'
+echo '{"foo": 0}' | jq '. += {"foo": "bar"}'
+```
+
+### Delete field
+
+```
+echo '{"foo": 0, "bar": 1}' | jq 'del(.foo)'
+```
