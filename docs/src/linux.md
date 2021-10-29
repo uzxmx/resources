@@ -194,6 +194,12 @@ tar ztvf foo.tar.gz
 
 # Extract tar without root directory
 tar zxvf foo.tar.gz --strip-components=1
+
+# Extract specific files (suppose foo is the root directory in foo.tar.gz)
+tar zxvf foo.tar.gz foo/bin/some-executable
+
+# Extract with wildcards and strip `foo/bin`
+tar zxvf foo.tar.gz --strip-components=2 --wildcards "foo/bin/*"
 ```
 
 ### User management
