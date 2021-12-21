@@ -1,3 +1,5 @@
+# This file demonstrates how to use OSX system calls.
+
 .global _main
 
 _main:
@@ -5,18 +7,32 @@ _main:
   movq    %rsp, %rbp
   subq    $0x10, %rsp
 
-  movq    $0x2000004, %rax # write
-  movq    $0x1, %rdi # stdout
   leaq    .msg(%rip), %rsi
   movq    $msglen, %rdx
-  syscall
+  callq   _sys_write_stdout
 
-  movq    $0x2000001, %rax # exit
   movq    $0x0, %rdi
-  syscall
+  callq   _sys_exit
 
-  movl    $0x1, %eax
+  movq    $0x0, %rax
   addq    $0x10, %rsp
+  popq    %rbp
+  retq
+
+_sys_write_stdout:
+  pushq   %rbp
+  movq    %rsp, %rbp
+  movq    $0x2000004, %rax # write
+  movq    $0x1, %rdi # stdout
+  syscall
+  popq    %rbp
+  retq
+
+_sys_exit:
+  pushq   %rbp
+  movq    %rsp, %rbp
+  movq    $0x2000001, %rax # exit
+  syscall
   popq    %rbp
   retq
 
