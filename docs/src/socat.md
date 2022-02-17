@@ -82,7 +82,7 @@ that works.
 socat UNIX-LISTEN:/tmp/test.sock,fork,reuseaddr,unlink-early,mode=777 TCP4:www.example.com:80
 ```
 
-### Use socat as a message collector
+#### Use socat as a message collector
 
 ```
 socat -u TCP4-LISTEN:5000,fork,reuseaddr OPEN:/tmp/test.log,creat,append
@@ -91,3 +91,19 @@ socat -u TCP4-LISTEN:5000,fork,reuseaddr OPEN:/tmp/test.log,creat,append
 In this example, when a client connects to port 5000, a new child process is
 generated. All data sent by the clients is appended to the file `/tmp/test.log`.
 If the file does not exist, `socat` creates it.
+
+#### Send data through a specific network interface
+
+```
+socat - TCP4:www.example.com:80,bind=10.0.0.1
+```
+
+In this example, it sends HTTP request through a network interface which has
+address `10.0.0.1`. If that is a virtual interface, you may need to enable
+kernel IP forward, and make sure there is one iptables rule exists like below:
+
+```
+iptables -t nat -I POSTROUTING -o eno2 -j MASQUERADE
+```
+
+`eno2` is a physical NIC with internet access. Change it as you need.

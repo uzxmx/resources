@@ -1,5 +1,12 @@
 # Linux
 
+### lsof
+
+```
+# To see if port 53 is in use on your system, use:
+sudo lsof -i :53
+```
+
 ### Process management
 
 #### Show process tree
