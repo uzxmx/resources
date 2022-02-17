@@ -94,3 +94,25 @@ Refs:
 
 * https://github.com/neoclide/coc-java/issues/27
 * https://github.com/redhat-developer/vscode-java/wiki/Lombok-support
+
+## Languages
+
+For other language servers not listed below, please visit
+`https://github.com/neoclide/coc.nvim/wiki/Language-servers`.
+
+### C/C++/Objective-C
+
+Use `clangd` with `coc-clangd` extension.
+
+Run `$dotfiles_dir/scripts/install/coc_extensions clangd` to install.
+
+Note that `clangd` relies on `compile_commands.json` file to work, so you
+need to use other tools to generate that file or do it manually. You can find
+available tools [here](https://clangd.llvm.org/installation.html#project-setup).
+
+If all files in a project use the same build flags, you don't need to provide
+`compile_commands.json`. Instead, you can put those flags one-per-line in
+`compile_flags.txt` in your source root.
+
+Ref:
+* https://github.com/clangd/coc-clangd
