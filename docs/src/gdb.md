@@ -149,3 +149,9 @@ If you want to go back to normal, input below:
 ```
 gef> gef config context.redirect ""
 ```
+
+### Break at a certain offset of a function
+
+```
+b *(&func_name + 25)
+```
