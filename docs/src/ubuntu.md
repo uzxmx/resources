@@ -1,5 +1,11 @@
 # Ubuntu
 
+## Shortcuts
+
+```
+F11: maximize the terminal window
+```
+
 ## Manage packages
 
 ```
@@ -12,10 +18,10 @@ dpkg-query -l
 
 # List installed files from <package-name>.
 dpkg -L <package-name>
-```
 
-## Shortcuts
+# List contents of a deb package.
+dpkg -c foo.deb
 
-```
-F11: maximize the terminal window
+# Extract the files contained by package to a directory.
+dpkg -x foo.deb <dir>
 ```
