@@ -1,3 +1,5 @@
+# Git
+
 ## Push all branches of a remote to a new remote from local
 
 ```
@@ -61,10 +63,38 @@ git push --delete origin tagname
 git tag -d tagname
 ```
 
+## Shallow clone
+
+```
+# If you later want to push code from a shallow clone, it needs to be converted
+# to a full clone (unshallow), run: `git fetch --unshallow`.
+git clone <url> --depth=1
+
+# With shallow submodules. Require git >= 2.9.0.
+git clone <url> --depth=1 --recursive --shallow-submodules
+```
+
 ## Pull git submodules after cloning
 
 ```
-git submodule update --init
+# Ref: https://stackoverflow.com/questions/16773642/pull-git-submodules-after-cloning-project-from-github
+git submodule update --init --progress
+
+# Shallow submodules.
+# Ref: https://stackoverflow.com/questions/2144406/how-to-make-shallow-git-submodules
+git submodule update --init --depth=1 --progress
 ```
 
-Ref: https://stackoverflow.com/questions/16773642/pull-git-submodules-after-cloning-project-from-github
+## Log formats
+
+One line.
+
+```
+--pretty=oneline --abbrev-commit
+```
+
+One line with commit time and author.
+
+```
+--pretty="format:%h %<(30,trunc)%s %ai %an %d"
+```
