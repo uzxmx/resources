@@ -9,6 +9,7 @@ namespace MyApp
             var rootCmd = new RootCommand("CLI for something");
 
             var strOpt = new Option<string>(new string[]{"-s", "--string"}, "A string option");
+            strOpt.IsRequired = true;
             var intOpt = new Option<int>(
                     "--int",
                     getDefaultValue: () => 42,
