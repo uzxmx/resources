@@ -11,15 +11,15 @@ namespace MyApp
             var strOpt = new Option<string>(new string[]{"-s", "--string"}, "A string option");
             strOpt.IsRequired = true;
             var intOpt = new Option<int>(
-                    "--int",
-                    getDefaultValue: () => 42,
-                    description: "An option whose argument is parsed as an int");
+                "--int",
+                getDefaultValue: () => 42,
+                description: "An option whose argument is parsed as an int");
             var boolOpt = new Option<bool>(
-                    "--bool",
-                    "An option whose argument is parsed as a bool");
+                "--bool",
+                "An option whose argument is parsed as a bool");
             var fileOpt = new Option<FileInfo>(
-                    "--file",
-                    "An option whose argument is parsed as a FileInfo");
+                "--file",
+                "An option whose argument is parsed as a FileInfo");
             var listCmd = new Command("list", "List something")
             {
                 strOpt,
