@@ -1,7 +1,7 @@
 all: main
 
 main: main.cpp
-	@g++ -o $@ $^
+	@g++ -g -o $@ $^
 
 lldb: main
 	@lldb --one-line "break set -n printBuffer" \
