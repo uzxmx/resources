@@ -9,38 +9,19 @@ increases tens of megabytes.
 ### Basic
 
 ```
+# Launch an executable with arguments.
+gdb --args /bin/ls -la foo
+
 # Step one instruction exactly.
 stepi
 si
 
 nexti
 ni
+
+where
+frame
 ```
-
-### Expression
-
-```
-p/f 0x3ff199999999999a
-
-# Print the return address.
-p *(long *)($rbp + 8)
-```
-
-### Attach to a running process
-
-Start gdb with `gdb -p <target-pid>`, or use `attach <target-pid>` command when
-in a gdb session.
-
-Note that the user running gdb should be the same user as the one running the
-target process, or root. In order to be able to view the source code when
-debugging, the user running gdb should also have read permissions for those
-source files targeted by debug symbols. So running gdb as root is a better
-choice.
-
-### Switch to TUI mode
-
-In order to view source codes clearly, press `Ctrl-x a` to show source code
-view.
 
 ### Breakpoints
 
@@ -62,7 +43,16 @@ b *main+15
 i b
 
 # Remove a breakpoint.
-d break <breakpoint-number>
+del break <breakpoint-number>
+```
+
+### Expression
+
+```
+p/f 0x3ff199999999999a
+
+# Print the return address.
+p *(long *)($rbp + 8)
 ```
 
 ### Show information
@@ -82,13 +72,6 @@ disas main
 disas *(long *)($rbp + 8)
 ```
 
-### Misc
-
-```
-where
-frame
-```
-
 ### Memory
 
 #### Read memory
@@ -103,11 +86,29 @@ x/10i 0xffff0
 
 #### Write memory
 
+TODO
+
 ### Switch between gdb debug console and program input
 
 * Switch from program input to gdb debug console, hit `CTRL-C`.
 
 * Switch from gdb debug console to program input, input `continue`.
+
+### Attach to a running process
+
+Start gdb with `gdb -p <target-pid>`, or use `attach <target-pid>` command when
+in a gdb session.
+
+Note that the user running gdb should be the same user as the one running the
+target process, or root. In order to be able to view the source code when
+debugging, the user running gdb should also have read permissions for those
+source files targeted by debug symbols. So running gdb as root is a better
+choice.
+
+### Switch to TUI mode
+
+In order to view source codes clearly, press `Ctrl-x a` to show source code
+view.
 
 ## GEF (GDB Enhanced Features)
 
