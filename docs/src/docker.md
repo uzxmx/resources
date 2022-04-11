@@ -4,7 +4,10 @@
 
 ```
 # Run MySQL server.
-docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7.32
+docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7.32
+
+# Run redis server.
+docker run --name redis-server -p 6379:6379 -d redis:5.0.12
 ```
 
 ## Commands
