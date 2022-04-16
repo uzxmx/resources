@@ -1,0 +1,19 @@
+{
+  "categoryItems": [
+    {
+      "secondCategoryItems": [
+        {
+          "secondCategoryNo": "3",
+          "secondCategoryName": "baz"
+        }
+      ],
+      "firstCategoryName": "foo",
+      "firstCategoryNo": "1"
+    },
+    {
+      "secondCategoryItems": [],
+      "firstCategoryName": "bar",
+      "firstCategoryNo": "2"
+    }
+  ]
+}
