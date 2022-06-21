@@ -3,12 +3,13 @@
 ### Variable expansion
 
 ```
+# This is wrong, it means `$f`oo.
 $foo
+
+Below the two forms are equivalent.
 $(foo)
 ${foo}
 ```
-
-All the forms are equivalent.
 
 ### Automatic variables
 
@@ -56,4 +57,21 @@ endef
 
 foo:
 	@$(bar)
+```
+
+### Current working directory
+
+```
+make -C /path
+
+$(PWD)
+$(shell pwd)
+```
+
+Ref: https://stackoverflow.com/questions/18136918/how-to-get-current-relative-directory-of-your-makefile
+
+### Functions
+
+```
+DOCKER_BUILD_ARGS := $(addprefix --build-arg ,$(shell cat "$(PWD)/build_args.txt"))
 ```

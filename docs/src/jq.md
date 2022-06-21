@@ -61,3 +61,11 @@ echo '{"foo": 0}' | jq '. += {"foo": "bar"}'
 ```
 echo '{"foo": 0, "bar": 1}' | jq 'del(.foo)'
 ```
+
+## Convert null to empty string
+
+```
+echo '{"foo": 0, "bar": 1}' | jq -r '.baz | values'
+```
+
+Ref: https://github.com/stedolan/jq/issues/354

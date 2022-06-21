@@ -276,3 +276,53 @@ Another possible solution:
 sudo rm -rf /Library/Developer/CommandLineTools
 sudo xcode-select --install
 ```
+
+## Select a file quickly
+
+For a file open dialog, press `Cmd + Shift + G`, then you'll be able to input
+the path.
+
+## Disable system integrity protection (SIP)
+
+* Restart your macOS machine.
+
+* When the screen turns blank, hold down Command + R until the Apple boot logo appears. This will put your computer into Recovery Mode.
+
+* Now, find the Utilities menu from the top and then select Terminal.
+
+* With the Terminal window open, type: `csrutil disable; reboot`
+
+## Mount dmg
+
+```
+hdiutil attach /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport/14.5/DeveloperDiskImage.dmg
+
+hdiutil info -verbose
+mount
+
+hdiutil detach disk2
+```
+
+## Change default apps associated with file types
+
+```
+brew install duti
+
+# Get the app associated with SVG files.
+duti -x svg
+
+# Associate SVG files with chrome (open SVG files by chrome).
+duti -s com.google.Chrome svg all
+```
+
+Ref: https://superuser.com/a/1092184
+
+## Commands
+
+### mdfind
+
+Find files.
+
+```
+mdfind -name objcopy
+```

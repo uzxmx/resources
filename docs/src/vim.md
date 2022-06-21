@@ -168,6 +168,11 @@ Load the last 10 commits for the current file
 
 :Glog -10 -- %
 
+```
+# Discard changes for current file. `%` expands to current file.
+:Git checkout -- %
+```
+
 ## Comment
 
 ```

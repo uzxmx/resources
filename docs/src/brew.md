@@ -5,9 +5,20 @@
 ```
 brew deps imagemagick@6
 
-# What does this do?
+# Allow keg-only formulae to be linked into places like `/usr/local/bin`,
+# `/usr/local/lib`, etc.
 brew link --force imagemagick@6
+
+# List all installed formulae and casks.
+brew list -1 -l
 ```
+
+## keg-only
+
+For a software to be "keg-only" means it is installed in `/usr/local/Cellar` but
+not linked into places like `/usr/local/bin`, `/usr/local/lib`, etc. That means
+other software that depends on it has to be compiled with specific instructions
+to use the files in `/usr/local/Cellar`.
 
 ## Brew directories
 
@@ -30,8 +41,6 @@ Brew will create links at standard locations. E.g.
 /usr/local/share
 ```
 
-## formula v.s. cask
-
 ## How can we have a library with different versions in the system?
 
 Suppose you have installed `imagemagick` at
@@ -53,3 +62,23 @@ For compilers to find imagemagick@6 you may need to set:
 For pkg-config to find imagemagick@6 you may need to set:
   export PKG_CONFIG_PATH="/usr/local/opt/imagemagick@6/lib/pkgconfig"
 ```
+
+## Formula v.s. Cask
+
+Homebrew calls its package definition files “formulae” (British plural for
+“formula”). Homebrew-Cask calls them “casks”. A cask, just like a formula, is a
+file written in a Ruby-based DSL that describes how to install something.
+
+Homebrew-Cask is an extension to Homebrew to install GUI applications such as
+Google Chrome or Atom. It started independently but its maintainers now work
+closely with Homebrew’s core team.
+
+Homebrew Cask extends Homebrew and brings its elegance, simplicity, and speed to
+the installation and management of GUI macOS applications such as Atom and
+Google Chrome.
+
+## Tap (Third-Party Repositories)
+
+Brew tap adds more repositories to the list of formulae that brew tracks,
+updates, and installs from. By default, tap assumes that the repositories come
+from GitHub, but the command isn’t limited to any one location.

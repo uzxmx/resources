@@ -1,3 +1,5 @@
+# Tmux
+
 ## How to list all key bindings?
 
 ```
@@ -38,3 +40,9 @@ Ref: https://unix.stackexchange.com/questions/490267/prevent-logoff-from-killing
 There may be another reason for this problem, if you use bash and the environment variable
 `TMOUT` exists and is not zero, the shell will close automatically after being idle for `TMOUT`
 seconds, which results in tmux session termination. For man info, refer to `man bash`.
+
+## Debug
+
+```
+tmux display-message foo
+```

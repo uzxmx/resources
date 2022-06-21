@@ -1,3 +1,5 @@
+# Python
+
 ## How can we list package versions when using `pip`
 
 ```
@@ -96,3 +98,14 @@ PASS_MIN_DAYS\g<1>0
 ```
 
 Ref: https://docs.python.org/2/library/re.html
+
+## Running specific tests
+
+Take [pynvim](https://github.com/neovim/pynvim) as an example.
+
+```
+python -m pytest -k test_legacy_vim_eval
+python -m pytest -k "test_eval or test_strwidth"
+```
+
+Ref: https://stackoverflow.com/questions/36456920/is-there-a-way-to-specify-which-pytest-tests-to-run-from-a-file

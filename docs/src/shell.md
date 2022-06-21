@@ -122,6 +122,20 @@ cat "$tmp"
 rm "$tmp"
 ```
 
+```
+# https://superuser.com/a/1307773
+mkfifo fifo
+
+# Open a fifo by fd 3
+exec 3>fifo
+
+# Close fd 3
+exec 3>&-
+
+echo -e '\x1e\x7f\x0cls' >fifo
+nc localhost 8080 <fifo
+```
+
 ## References
 
 * https://tldp.org/LDP/abs/html/index.html

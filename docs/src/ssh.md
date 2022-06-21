@@ -8,7 +8,7 @@ ssh-keygen -t rsa -f path-to-private-key-to-save
 # Ref: https://serverfault.com/questions/939909/ssh-keygen-does-not-create-rsa-private-key
 ssh-keygen -m PEM -t rsa -f path-to-private-key-to-save
 
-# Generate public key from private key
+# Get public key from private key
 ssh-keygen -y -f id_rsa >id_rsa.pub
 
 # Show fingerprint
@@ -55,7 +55,7 @@ ssh -A user@host
 
 If a new ssh agent is started in remote shell's initialization process, then agent forwarding will not work.
 
-### Test if a ssh key works for a connection
+### Test if an ssh key works for a connection
 
 ```
 ssh -o IdentitiesOnly=yes -i <pem-file> user@host
@@ -147,3 +147,13 @@ ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@host
 # Forward traffic from local to remote.
 ssh user@host -L port:localhost:port
 ```
+
+## ProxyCommand
+
+OpenSSH runs `ProxyCommand` with `$SHELL` by `execv`. So if `$SHELL` doesn't
+expand to an absolute path, it will fail with such error like: `bash: No such
+file or directory`.
+
+Ref:
+* https://stackoverflow.com/a/64893356
+* https://github.com/theos/theos/issues/481
