@@ -1,8 +1,38 @@
 # Brew
 
+## Terminology
+
+formula: Homebrew package definition built from upstream sources
+
+cask: Homebrew package definition that installs macOS native applications
+
+keg: installation destination directory of a given formula version e.g. /usr/local/Cellar/foo/0.1
+
+rack: directory containing one or more versioned kegs e.g. /usr/local/Cellar/foo
+
+keg-only a formula is keg-only if it is not symlinked into Homebrew's prefix (e.g. /usr/local)
+
+cellar: directory containing one or more named racks e.g. /usr/local/Cellar
+
+Caskroom: directory containing one or more named casks e.g. /usr/local/Caskroom
+
+tap: directory (and usually Git repository) of formulae, casks and/or external commands
+
+bottle: pre-built keg poured into the cellar/rack instead of building from upstream
+
 ## Commands
 
 ```
+man brew
+
+# Show homebrew directory.
+brew --repo
+
+# Show a tap directory.
+brew --repo user/repo
+brew --repo homebrew/core
+brew --repo homebrew/cask
+
 brew deps imagemagick@6
 
 # Allow keg-only formulae to be linked into places like `/usr/local/bin`,
