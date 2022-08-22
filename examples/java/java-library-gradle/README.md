@@ -14,3 +14,5 @@ For a demo which uses this library, please see
 
 After running the above command, the library should be published to
 `~/.m2/repository/com/example/my-library`.
+
+For more info about publishing, please see [the doc](https://docs.gradle.org/current/userguide/publishing_maven.html).
