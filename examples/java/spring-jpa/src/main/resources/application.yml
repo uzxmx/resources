@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+        jdbc.batch_size: 100
+        order_inserts: true
+        order_updates: true
+  datasource:
+    url: jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/${DB_NAME:spring_jpa_demo_dev}?useUnicode=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&useTimezone=true&serverTimezone=GMT%2B8
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
