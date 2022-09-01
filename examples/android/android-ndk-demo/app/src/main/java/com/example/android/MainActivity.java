@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
         binding.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                JNIUtils.staticNativeBar("foo", 1);
+                JNIUtils utils = new JNIUtils();
+                utils.nativeFoo();
+
                 value = sum(value, 1);
                 tv.setText(Integer.toString(value));
             }
