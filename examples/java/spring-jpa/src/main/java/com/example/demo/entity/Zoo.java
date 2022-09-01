@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 import lombok.Data;
 
@@ -20,6 +21,9 @@ public class Zoo {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "zoo")
     private List<Animal> animals;
+
+    @Version
+    private Long version;
 }

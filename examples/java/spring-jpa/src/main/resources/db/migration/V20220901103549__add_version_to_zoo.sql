@@ -1,0 +1,1 @@
+ALTER TABLE `zoo` ADD COLUMN `version` bigint(20) NOT NULL DEFAULT 0;
