@@ -1,0 +1,27 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        applicationId "org.example.android"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:22.1.1'
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
+}
