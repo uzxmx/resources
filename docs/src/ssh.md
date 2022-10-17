@@ -112,6 +112,12 @@ Use `autossh` to keep ssh client alive.
 The ssh option `-N` is required when only forwarding ports.
 
 ```
+# Turn the monitoring function off. Ask ssh client to disconnect after 60 seconds of no
+# response from the server, and then `autossh` would reconnect automatically.
+autossh -M 0 -f user@host -L LOCAL_PORT:localhost:32443 -N -o "ServerAliveInterval 20" -o "ServerAliveCountMax 3"
+
+# By specifying `-M 20000`, `autossh` will set up forwards so that it can send
+# data on port 20000 and receive it back on 20001.
 autossh -M 20000 -f user@host -R REMOTE_PORT:localhost:22 -N
 ```
 
