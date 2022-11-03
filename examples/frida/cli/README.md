@@ -38,3 +38,7 @@ Process terminated
 
 Thank you for using Frida!
 ```
+
+## Ref
+
+https://monosource.github.io/tutorial/2017/01/26/frida-linux-part1/
