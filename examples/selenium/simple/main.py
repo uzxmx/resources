@@ -13,6 +13,14 @@ class Main:
         options = Options()
         options.headless = not opts.wait_infinitely and not opts.no_headless
 
+        if opts.user_agent:
+            options.add_argument('--user-agent=%s' % opts.user_agent)
+        else:
+            options.add_argument('--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36')
+
+        if opts.proxy_server:
+            options.add_argument('--proxy-server=%s' % opts.proxy_server)
+
         if opts.remote:
             driver = webdriver.Remote(
                command_executor=opts.remote_url,
@@ -59,5 +67,7 @@ if __name__ == '__main__':
     parser.add_argument('-W', '--wait-infinitely', action='store_true', default=False, help='Wait infinitely so you can inspect the page. This implies `--no-headless`')
     parser.add_argument('-r', '--remote', action='store_true', default=False, help='Use remote webdriver')
     parser.add_argument('--remote-url', default='http://127.0.0.1:4444/wd/hub', help='The url for the remote webdriver')
+    parser.add_argument('-u', '--user-agent', help='The user agent')
+    parser.add_argument('-p', '--proxy-server', help='The proxy server, e.g. http://127.0.0.1:8080')
     args = parser.parse_args()
     Main.run(args)
