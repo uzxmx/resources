@@ -9,11 +9,17 @@ from selenium.webdriver.chrome.options import Options
 
 class Main:
     @classmethod
-    def run(cls, no_headless=False, wait_infinitely=False):
+    def run(cls, opts):
         options = Options()
-        options.headless = not wait_infinitely and not no_headless
+        options.headless = not opts.wait_infinitely and not opts.no_headless
 
-        driver = webdriver.Chrome(options=options)
+        if opts.remote:
+            driver = webdriver.Remote(
+               command_executor=opts.remote_url,
+               options=options
+            )
+        else:
+            driver = webdriver.Chrome(options=options)
 
         driver.get('https://www.baidu.com')
         assert '百度' in driver.title
@@ -38,7 +44,7 @@ class Main:
             assert e.tag_name == 'h3'
             assert '百度' in e.text
 
-        if wait_infinitely:
+        if opts.wait_infinitely:
             WebDriverWait(driver, timeout=3600).until(lambda d: False)
 
         driver.close()
@@ -47,5 +53,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-H', '--no-headless', action='store_true', default=False, help='No headless')
     parser.add_argument('-W', '--wait-infinitely', action='store_true', default=False, help='Wait infinitely so you can inspect the page. This implies `--no-headless`')
+    parser.add_argument('-r', '--remote', action='store_true', default=False, help='Use remote webdriver')
+    parser.add_argument('--remote-url', default='http://127.0.0.1:4444/wd/hub', help='The url for the remote webdriver')
     args = parser.parse_args()
-    Main.run(no_headless=args.no_headless, wait_infinitely=args.wait_infinitely)
+    Main.run(args)
