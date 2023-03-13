@@ -151,7 +151,22 @@ ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null user@host
 
 ```
 # Forward traffic from local to remote.
-ssh user@host -L port:localhost:port
+ssh user@host -L [local_bind_address:]local_port:localhost:remote_port
+
+# Forward traffic from remote to local.
+#
+# * An empty bind_address, or the address `*`, indicates that the remote socket should listen
+# on all interfaces.
+#
+# * When binding to all remote interfaces, the remote ssh server must be configured with `GatewayPorts yes`.
+#
+# * Specifying a remote bind_address will only succeed if the server's `GatewayPorts` option is enabled.
+
+ssh user@host -R [remote_bind_address:]remote_port:localhost:local_port
+
+# Create a SOCKS server on local side at a specific port which routes all requests through the
+remote server.
+ssh user@host -D port
 ```
 
 ## ProxyCommand
