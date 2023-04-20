@@ -8,6 +8,8 @@
   * [Run a container](#run-a-container)
   * [Show node labels](#show-node-labels)
   * [Build a docker image with http proxy](#build-a-docker-image-with-http-proxy)
+  * [Overlay network](#overlay-network)
+    * [Container discovery](#container-discovery)
   * [Swarm mode](#swarm-mode)
     * [Commands](#commands-1)
     * [Rolling update a service](#rolling-update-a-service)
@@ -23,6 +25,7 @@
 * [Dockerfile](#dockerfile)
   * [CMD](#cmd)
   * [COPY](#copy)
+* [Access a container port from outside without publishing it](#access-a-container-port-from-outside-without-publishing-it)
 
 <!-- vim-markdown-toc -->
 
@@ -34,6 +37,9 @@ docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql
 
 # Run redis server.
 docker run --name redis-server -p 6379:6379 -d redis:5.0.12
+
+# Run mongodb server.
+docker run --name mongo-server -p 27017:27017 -d mongo:6.0.2
 
 # Run openssl command.
 docker run --rm uzxmx/openssl openssl version
@@ -78,6 +84,10 @@ docker run -it --rm busybox:1.32.0 sh
 # For more info, please visit https://docs.docker.com/docker-for-mac/networking/
 docker run --rm --network host busybox:1.32.0 nc -zv localhost 80
 docker run --rm --network host busybox:1.32.0 nc -zv host.docker.internal 80
+
+# Run busybox in a swarm cluster. This busybox image contains tools like `curl`,
+# `jq`, `dig`, etc.
+docker run --network public -it --rm sequenceiq/busybox
 ```
 
 ### Show node labels
@@ -96,6 +106,17 @@ docker node ls -q | xargs docker node inspect \
 docker build . -f docker/Dockerfile --build-arg http_proxy=http://192.168.1.5:8123
 ```
 
+### Overlay network
+
+#### Container discovery
+
+For most situations, you should connect to the service name, which is
+load-balanced and handled by all containers ("tasks") backing the service. To
+get a list of all tasks backing the service, do a DNS lookup for
+`tasks.<service-name>`.
+
+Ref: https://docs.docker.com/network/overlay/#container-discovery
+
 ### Swarm mode
 
 #### Commands
@@ -103,6 +124,10 @@ docker build . -f docker/Dockerfile --build-arg http_proxy=http://192.168.1.5:81
 ```
 # Initialize a swarm cluster if there isn't one.
 docker swarm init
+
+# Run below command on a manager node to get the join token for a worker.
+# See https://docs.docker.com/engine/swarm/join-nodes/
+docker swarm join-token worker
 
 # Create a network.
 docker network create --driver=overlay --attachable public
@@ -245,3 +270,7 @@ COPY hom* /mydir/
 ```
 
 Ref: https://docs.docker.com/engine/reference/builder/#copy
+
+## Access a container port from outside without publishing it
+
+Ref: https://devops.stackexchange.com/questions/15473/how-to-access-a-container-service-port-in-swarm-without-publishing-the-port-to-t
