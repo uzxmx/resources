@@ -16,6 +16,7 @@ import com.example.android.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     static {
+        System.loadLibrary("jnish");
         System.loadLibrary("main");
     }
 
@@ -56,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, DetailsActivity.class));
+            }
+        });
+
+        binding.btnFuncWithJString.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JNIUtils utils = new JNIUtils();
+                utils.funcWithJString("Hello world");
             }
         });
     }

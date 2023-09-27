@@ -1,0 +1,6 @@
+# break set -n RegisterNatives -s libart.so
+# break set -n GetStringUTFChars -s libart.so
+
+break set -n '_JNIEnv::GetStringUTFChars(_jstring*, unsigned char*)' -s libmain.so
+
+# break set -n funcWithJStringInner

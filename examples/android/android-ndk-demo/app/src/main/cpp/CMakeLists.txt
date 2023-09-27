@@ -47,3 +47,20 @@ target_link_libraries( # Specifies the target library.
         # Links the target library to the log library
         # included in the NDK.
         ${log-lib})
+
+add_library( # Sets the name of the library.
+        jnish
+
+        # Sets the library as a shared library.
+        SHARED
+
+        # Provides a relative path to your source file(s).
+        log.cpp
+        jnish.cpp)
+
+target_link_libraries( # Specifies the target library.
+        jnish
+
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib})

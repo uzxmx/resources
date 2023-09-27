@@ -16,6 +16,16 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags ''
+                // See https://developer.android.com/ndk/guides/cmake#android_arm_neon
+                arguments '-DANDROID_ARM_NEON=FALSE'
+            }
+        }
+
+        ndk {
+            if (project.hasProperty('abi')) {
+                abiFilters.addAll(project.abi.split(','))
+            } else {
+                abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
             }
         }
     }
