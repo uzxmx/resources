@@ -31,7 +31,10 @@ Use `man xcodebuild` to get all actions.
 ## Mount NTFS with RW permissions
 
 ```
-# Find device through spotlight profile
+brew tap gromgit/homebrew-fuse
+brew install ntfs-3g-mac
+
+# Find device through spotlight profile, or by `diskutil list`.
 sudo ntfs-3g /dev/disk2s3 /mount_point
 ```
 
@@ -325,4 +328,27 @@ Find files.
 
 ```
 mdfind -name objcopy
+```
+
+## Accessibility
+
+https://github.com/jacobsalmela/tccutil
+
+Where can we find `tccctl` utility?
+
+https://superuser.com/questions/1441270/apps-dont-show-up-in-camera-and-microphone-privacy-settings-in-macbook
+https://apple.stackexchange.com/questions/384310/how-do-i-configure-camera-and-microphone-permission-on-macos-mojave
+
+### tcc.db
+
+```
+https://applehelpwriter.com/2018/07/06/accessing-tcc-db-without-privileges/
+https://apple.stackexchange.com/questions/178313/change-accessibility-setting-on-mac-using-terminal
+https://www.rainforestqa.com/blog/macos-tcc-db-deep-dive
+```
+
+### Find all TCC services
+
+```
+plutil -p /System/Library/PrivateFrameworks/TCC.framework/Resources/en.lproj/Localizable.strings
 ```

@@ -14,6 +14,9 @@ mvn -Dtest=com.example.Test#foo test
 mvn install -DskipTests
 # Use `maven.test.skip` property to skip compiling the tests
 mvn install -Dmaven.test.skip=true
+
+# Run spring boot project.
+mvn spring-boot:run
 ```
 
 ## Show help
@@ -47,3 +50,25 @@ section of `pom.xml`. Find examples
 
 If we want to pass environment variables to maven test, we can declare the
 environment variables in the same way as most linux commands.
+
+## Get dependency tree
+
+```
+mvn dependency:tree
+```
+
+Ref: https://stackoverflow.com/questions/3342908/how-to-get-a-dependency-tree-for-an-artifact
+
+## Download sources for jar
+
+```
+mvn dependency:sources
+
+# You can get group id and artifact id from `mvn dependency:tree`.
+# TODO this doesn't work for `org.eclipse.jdt.core`.
+mvn dependency:sources -DincludeGroupIds=p2.eclipse-plugin -DincludeArtifactIds=org.eclipse.jdt.core
+```
+
+Ref:
+https://stackoverflow.com/questions/27971430/how-to-download-sources-for-an-specific-jar-dependency-of-a-maven-project
+https://www.baeldung.com/maven-download-sources-javadoc

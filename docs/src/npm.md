@@ -10,6 +10,10 @@ can use `npm ci` to install dependencies.
 npm set registry https://registry.npm.taobao.org
 npm set disturl https://npm.taobao.org/dist
 
+# TODO new host and for yarn
+yarn config set registry https://registry.npmmirror.com/
+yarn config set sass_binary_site https://npmmirror.com/mirrors/node-sass
+
 # Optional
 npm set sass_binary_site https://npm.taobao.org/mirrors/node-sass
 npm set electron_mirror https://npm.taobao.org/mirrors/electron/

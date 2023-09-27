@@ -1,3 +1,5 @@
+# CentOS
+
 ## yum
 
 ### yum repolist
@@ -29,6 +31,7 @@ yum list --showduplicates | grep postgresql
 
 yum list postgresql*
 yum list --showduplicates postgresql*
+yum list --showduplicates docker-ce | expand
 ```
 
 ### yum deplist
@@ -145,3 +148,13 @@ chmod 700 ~/.ssh
 echo YOUR_PUBLIC_KEY >>~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 ```
+
+## Install GCC 8 on CentOS 7
+
+```
+sudo yum install -y centos-release-scl
+sudo yum install -y devtoolset-8-gcc devtoolset-8-gcc-c++
+scl enable devtoolset-8 -- bash
+```
+
+Ref: https://stackoverflow.com/a/55345845

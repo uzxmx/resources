@@ -40,6 +40,12 @@ target size: 750x750
 # -55-55: right,bottom
 size=55
 convert input.jpg -crop +${size}+${size} -crop -${size}-${size} output.png
+
+left=5
+right=$left
+top=7
+bottom=$top
+convert icon_camp.png -crop +${left}+${top} -crop -${right}-${bottom} new.png
 ```
 
 Ref:

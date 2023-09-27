@@ -180,3 +180,19 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-reroute.
 https://www.elastic.co/guide/en/elasticsearch/reference/current/add-elasticsearch-nodes.html
 https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html#_node_data_path_settings
 https://www.elastic.co/guide/en/elasticsearch/reference/current/allocation-filtering.html
+
+flood stage disk watermark [95%] exceeded
+
+```
+curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_cluster/settings -d '{ "transient": { "cluster.routing.allocation.disk.threshold_enabled": false } }'
+```
+
+
+    Index errors:
+      `{"type"=>"cluster_block_exception", "reason"=>"blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];"}`
+
+```
+curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}'
+```
+
+https://stackoverflow.com/questions/30289024/high-disk-watermark-exceeded-even-when-there-is-not-much-data-in-my-index

@@ -46,3 +46,14 @@ seconds, which results in tmux session termination. For man info, refer to `man 
 ```
 tmux display-message foo
 ```
+
+## Recover tmux session when files in /tmp are deleted
+
+The session still exists, but we cannot attach to it.
+
+```
+pkill -USR1 tmux
+```
+
+Ref:
+https://unix.stackexchange.com/questions/582423/recover-a-tmux-session-that-tmux-insists-isnt-running

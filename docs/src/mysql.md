@@ -62,6 +62,9 @@ SHOW VARIABLES LIKE 'collation%';
 
 ```
 CREATE DATABASE dbname;
+
+TODO
+
 CREATE DATABASE IF NOT EXISTS dbname CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE DATABASE dbname CHARACTER SET utf8 COLLATE utf8_general_ci;
 ```
@@ -94,9 +97,9 @@ ALTER TABLE table_name
 
 ALTER TABLE table_name
   ADD COLUMN column_name INT NOT NULL,
-  ADD FOREIGN KEY staff_id_fk(staff_id) REFERENCES staff(id);
+  ADD FOREIGN KEY foo_id_fk(foo_id) REFERENCES foo(id);
 
-ALTER TABLE staff ADD COLUMN downloaded bit(1) NOT NULL DEFAULT b'0';
+ALTER TABLE table_name ADD COLUMN column_name_4 bit(1) NOT NULL DEFAULT b'0';
 ```
 
 Ref: https://www.mysqltutorial.org/mysql-add-column/
@@ -111,6 +114,12 @@ ALTER TABLE table_name MODIFY column_name BIGINT(20) DEFAULT NULL;
 
 ```
 ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_1, column_2, column_3);
+```
+
+To remove unique key:
+
+```
+ALTER TABLE table_name DROP INDEX unique_idx_name;
 ```
 
 ## Insert/Update/Delete
@@ -134,21 +143,34 @@ alias mysqldump="docker run --rm --network host mysql:5.7.32 mysqldump"
 
 ## MySQL Dump
 
-### Dump schema
+### Dump schema and data
 
 ```
-# Dump a complete database with data.
+# Dump all tables data with `CREATE TABLE` statements.
 # This doesn't include a `CREATE DATABASE` statement.
-mysqldump -u$USER -h "$HOST" -p$PASSWORD "$DBNAME" >dump.sql
+mysqldump "$DBNAME" >dump.sql
 
-# Dump a complete database without data.
+# Only dump schema.
 mysqldump "$DBNAME" --no-data >dump.sql
+
+# Only dump data.
+mysqldump "$DBNAME" --no-create-info >dump.sql
+
+# Only dump data with complete `INSERT` statements that include column names.
+mysqldump "$DBNAME" --no-create-info --complete-insert >dump.sql
 
 # Dump specific tables of a database.
 mysqldump "$DBNAME" table1 table2 ... >dump.sql
 
+# Dump specifc table data with query.
+mysqldump "$DBNAME" table1 --no-create-info --where="id <= 10" >dump.sql
+
 # By specifying `--databases` option, it include a `CREATE DATABASE` statement.
 mysqldump --databases "$DBNAME1" >dump.sql
+
+# If you add `--databases` option, you also need to add `--no-create-db` to not
+# generate `CREATE DATABASE` statement.
+mysqldump --databases "$DBNAME1" --no-create-db --no-create-info >dump.sql
 
 # Add `DROP DATABASE` statement before `CREATE DATABASE` statement.
 mysqldump --databases "$DBNAME1" --add-drop-database >dump.sql
@@ -158,23 +180,6 @@ mysqldump --databases "$DBNAME1" "$DBNAME2" ... >dump.sql
 
 # Dump all databases.
 mysqldump --all-databases >dump.sql
-```
-
-### Dump data only
-
-```
-# Dump all tables data of a database.
-mysqldump "$DBNAME" --no-create-info >dump.sql
-
-# Dump specifc tables data.
-mysqldump "$DBNAME" table1 table2 ... --no-create-info >dump.sql
-
-# Dump specifc table data with query.
-mysqldump "$DBNAME" table1 --no-create-info --where="id <= 10" >dump.sql
-
-# If you add `--databases` option, you also need to add `--no-create-db` to not
-# generate `CREATE DATABASE` statement.
-mysqldump --databases "$DBNAME" --no-create-db --no-create-info >dump.sql
 ```
 
 ### Load the dump
@@ -193,3 +198,50 @@ Use read-only transaction.
 # tables, deleting columns will not be able to execute.
 SET SESSION TRANSACTION READ ONLY;
 ```
+
+## TODO
+
+https://tableplus.com/blog/2018/08/mysql-how-to-turn-off-only-full-group-by.html
+
+## Deadlock
+
+```
+show engine innodb status;
+```
+
+Session A: hold exclusive lock for row r1, then acquire shared lock for row r2.
+Session B: hold exclusive lock for row r2, then acquire shared lock for row r1.
+
+Ref: https://stackoverflow.com/questions/41015813/avoiding-mysql-deadlock-when-upgrading-shared-to-exclusive-lock
+
+## Transaction
+
+SELECT * FROM information_schema.innodb_trx;
+SHOW PROCESSLIST;
+
+```
+START TRANSACTION;
+COMMIT;
+
+ROLLBACK;
+```
+
+```
+SELECT @@transaction_ISOLATION;
+
+Ref: https://stackoverflow.com/questions/41825832/mysql-how-to-find-out-isolation-level-for-the-transactions
+```
+
+
+```
+set foreign_key_checks=0;
+set foreign_key_checks=1;
+```
+
+### Order by a fixed list
+
+```
+SELECT * FROM table WHERE id IN (3, 11, 7, 1) ORDER BY FIELD(id, 3, 11, 7, 1)
+```
+
+Ref: https://stackoverflow.com/questions/10940402/order-items-in-mysql-by-a-fixed-list

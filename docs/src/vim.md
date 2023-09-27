@@ -179,3 +179,7 @@ Load the last 10 commits for the current file
 # vim: commentstring=#\ %s
 ```
 https://github.com/tpope/vim-commentary
+
+## Insert NULL character in vim
+
+In insert mode, type `<ctrl-v>`, and then type `0` three times.

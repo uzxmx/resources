@@ -39,7 +39,7 @@ docker run --name mysql-server -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql
 docker run --name redis-server -p 6379:6379 -d redis:5.0.12
 
 # Run mongodb server.
-docker run --name mongo-server -p 27017:27017 -d mongo:6.0.2
+docker run --name mongo-server -p 27017:27017 -d -v "$(pwd)/mongo_data:/data" mongo:6.0.2
 
 # Run openssl command.
 docker run --rm uzxmx/openssl openssl version

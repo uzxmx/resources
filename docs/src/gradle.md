@@ -34,3 +34,32 @@ allprojects {
     }
 }
 ```
+
+## HTTP proxy
+
+~/.gradle/gradle.properties
+
+```
+systemProp.http.proxyHost=localhost
+systemProp.http.proxyPort=8123
+systemProp.https.proxyHost=localhost
+systemProp.https.proxyPort=8123
+```
+
+## Java compatibility
+
+Ref: https://stackoverflow.com/questions/41017544/how-to-specify-source-and-target-compatibility-in-java-module
+
+## Skip a task
+
+```
+gradle -x <task>
+
+# Skip compiling java.
+gradle -x compileJava
+
+# Skip test for gradle.
+gradle build -x test
+```
+
+Ref: https://stackoverflow.com/questions/4597850/gradle-build-without-tests

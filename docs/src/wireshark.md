@@ -1,6 +1,5 @@
 # Wireshark
 
-
 ## Logical operators
 
 Filters can be combined by such logical operators:

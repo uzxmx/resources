@@ -1,5 +1,11 @@
 # GDB
 
+```
+info shared
+
+target remote 192.168.3.59:12345
+```
+
 The executable to debug should be rebuilt with debug symbols added. For example,
 the file size of executable `postgres` after rebuilt with debug symbols
 increases tens of megabytes.

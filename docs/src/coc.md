@@ -1,32 +1,78 @@
-https://github.com/neoclide/coc.nvim/issues/308
-https://github.com/neoclide/coc.nvim/wiki/Using-snippets
+# coc.nvim
 
-https://github.com/neoclide/coc.nvim/wiki/F.A.Q
+## Debug language server
 
-https://github.com/Shougo/echodoc.vim
+Ref: https://github.com/neoclide/coc.nvim/wiki/Debug-language-server
 
-https://zhuanlan.zhihu.com/p/37588324
-https://github.com/tenfyzhong/CompleteParameter.vim
-https://github.com/neoclide/coc-snippets
+## Languages
 
-https://github.com/neoclide/coc.nvim/wiki/Using-coc-list
+For other language servers not listed below, please visit
+`https://github.com/neoclide/coc.nvim/wiki/Language-servers`.
 
-https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources#trigger-mode-of-completion
+### Java
 
-https://github.com/neoclide/coc.nvim/wiki
+Use `coc-java` extension.
 
-## Automatically select first item of popup menu
+#### Commands
 
 ```
-Add `"coc.preferences.noselect": false` to coc-settings.json.
+# Below is the same as when you execute `:CocCommand`, and then select `java.open.serverLog`.
+# For supported commands, please visit https://github.com/neoclide/coc-java#available-commands
+:call CocAction('runCommand', 'java.open.serverLog')
 
-Ref: https://github.com/neoclide/coc.nvim/issues/124
+:call CocActionAsync('runCommand', 'java.action.organizeImports')
 ```
 
-## Loading order of `coc-settings.json`
+#### coc-java-dependency
 
-TODO
-We can create a custom configuration file at `<project-root-dir>/.vim/coc-settings.json`.
+```
+:echo CocRequest('java', 'workspace/executeCommand', { 'command': 'java.project.getAll' })
+
+# Replace `workspace-uri` with the output of the above command.
+:echo CocRequest('java', 'workspace/executeCommand', { 'command': 'java.project.list', 'arguments': ['workspace-uri'] })
+:echo CocRequest('java', 'workspace/executeCommand', { 'command': 'java.project.getMainClasses', 'arguments': ['workspace-uri'] })
+
+```
+
+#### How to integrate with `Project Lombok`?
+
+Download some version of lombok jar to somewhere and optionally create a link `lombok.jar`
+to that file. Add below settings to `coc-settings.json`.
+
+```
+{
+  "java.jdt.ls.vmargs": "-javaagent:<absolute-path-to-lombok-jar>"
+}
+```
+
+Refs:
+
+* https://github.com/neoclide/coc-java/issues/27
+* https://github.com/redhat-developer/vscode-java/wiki/Lombok-support
+
+#### Troubleshooting
+
+* Run `:messages` to get echoed messages in vim.
+* Enable verbose trace for jdt.ls by adding `"java.trace.server": "verbose"` in your settings file, then check output by `:CocCommand workspace.showOutput java`.
+* Run `:CocCommand java.open.serverLog` to open log of jdt.ls.
+* Try `:CocCommand java.clean.workspace` to clean workspace cache.
+
+### C/C++(a.k.a CPP)/Objective-C
+
+Use `clangd` with `coc-clangd` extension.
+
+Run `$dotfiles_dir/scripts/install/coc_extensions clangd` to install.
+
+Note that `clangd` relies on `compile_commands.json` file to work, so you
+need to use other tools to generate that file or do it manually. You can find
+available tools [here](https://clangd.llvm.org/installation.html#project-setup).
+
+If all files in a project use the same build flags, you don't need to provide
+`compile_commands.json`. Instead, you can put those flags one-per-line in
+`compile_flags.txt` in your source root.
+
+Ref:
+* https://github.com/clangd/coc-clangd
 
 ## How to develop or debug coc.nvim
 
@@ -79,40 +125,36 @@ Add below configuration to `coc-settings.json`.
 Open another terminal and use vim to open a kotlin project. You can
 use `CocInfo` to view kotlin-language-server log.
 
-## How to integrate with `Project Lombok`?
+## Misc
 
-Download some version of lombok jar to somewhere and optionally create a link `lombok.jar`
-to that file. Add below settings to `coc-settings.json`.
+### Automatically select first item of popup menu
 
 ```
-{
-  "java.jdt.ls.vmargs": "-javaagent:<absolute-path-to-lombok-jar>"
-}
+Add `"coc.preferences.noselect": false` to coc-settings.json.
+
+Ref: https://github.com/neoclide/coc.nvim/issues/124
 ```
 
-Refs:
+### Loading order of `coc-settings.json`
 
-* https://github.com/neoclide/coc-java/issues/27
-* https://github.com/redhat-developer/vscode-java/wiki/Lombok-support
+TODO
+We can create a custom configuration file at `<project-root-dir>/.vim/coc-settings.json`.
 
-## Languages
+### Resources
 
-For other language servers not listed below, please visit
-`https://github.com/neoclide/coc.nvim/wiki/Language-servers`.
+https://github.com/neoclide/coc.nvim/issues/308
+https://github.com/neoclide/coc.nvim/wiki/Using-snippets
 
-### C/C++/Objective-C
+https://github.com/neoclide/coc.nvim/wiki/F.A.Q
 
-Use `clangd` with `coc-clangd` extension.
+https://github.com/Shougo/echodoc.vim
 
-Run `$dotfiles_dir/scripts/install/coc_extensions clangd` to install.
+https://zhuanlan.zhihu.com/p/37588324
+https://github.com/tenfyzhong/CompleteParameter.vim
+https://github.com/neoclide/coc-snippets
 
-Note that `clangd` relies on `compile_commands.json` file to work, so you
-need to use other tools to generate that file or do it manually. You can find
-available tools [here](https://clangd.llvm.org/installation.html#project-setup).
+https://github.com/neoclide/coc.nvim/wiki/Using-coc-list
 
-If all files in a project use the same build flags, you don't need to provide
-`compile_commands.json`. Instead, you can put those flags one-per-line in
-`compile_flags.txt` in your source root.
+https://github.com/neoclide/coc.nvim/wiki/Completion-with-sources#trigger-mode-of-completion
 
-Ref:
-* https://github.com/clangd/coc-clangd
+https://github.com/neoclide/coc.nvim/wiki

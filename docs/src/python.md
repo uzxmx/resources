@@ -3,7 +3,10 @@
 ## How can we list package versions when using `pip`
 
 ```
-# Install yolk3k
+# Using pip
+pip index versions <package>
+
+# Using yolk3k
 sudo pip install yolk3k
 
 # Then list package versions

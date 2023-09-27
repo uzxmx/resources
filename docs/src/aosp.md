@@ -1,6 +1,20 @@
 # AOSP
 
-## Download source
+`AOSP` contains many projects. Projects are categorized by manifests. The
+manifests are managed by a git repo. So different branch of the manifests repo
+contains different projects. For example, `android-11.0.0_r8`,
+`studio-master-dev`, `emu-master-dev` are three different branches, each of them
+contains different projects.
+
+## Download source code
+
+### repo tool
+
+`repo` is a tool that is used to download and manage `AOSP` projects.
+It's the same as the one found in
+[depot_tools](https://chromium.googlesource.com/chromium/tools/depot_tools.git).
+
+### Download android source code
 
 ```
 # Ref: https://mirrors.tuna.tsinghua.edu.cn/help/git-repo/
@@ -13,6 +27,22 @@ cd WORKING_DIRECTORY
 repo init -u https://aosp.tuna.tsinghua.edu.cn/platform/manifest
 repo init -u https://aosp.tuna.tsinghua.edu.cn/platform/manifest -b android-11.0.0_r8
 repo sync
+```
+
+### Download android studio source code
+
+```
+# Create a shallow clone for manifest repository. See `repo help init`.
+# When it finishes, a directory `.repo/manifests` will be created.
+repo init -u https://android.googlesource.com/platform/manifest -b studio-master-dev --depth=1
+
+# List all projects.
+repo list -a
+
+# Sync specific project.
+repo sync tools/adt/idea
+
+Ref: https://android.googlesource.com/platform/tools/base/+/studio-master-dev/source.md
 ```
 
 ## Creating a case-sensitive disk image for OSX
