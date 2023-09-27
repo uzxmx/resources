@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import argparse
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -20,6 +21,8 @@ class Main:
 
         if opts.proxy_server:
             options.add_argument('--proxy-server=%s' % opts.proxy_server)
+
+        options.add_argument('--user-data-dir=%s' % os.path.join(os.getcwd(), 'user_data'))
 
         if opts.remote:
             driver = webdriver.Remote(
@@ -52,6 +55,22 @@ class Main:
             for e in elements:
                 assert e.tag_name == 'h3'
                 assert '百度' in e.text
+
+            def find_input(d):
+                print('Find input')
+                e = d.find_element(By.ID, 'kw')
+                if e.tag_name == 'input':
+                    print('Found input')
+                    return e
+                else:
+                    print('Not found input')
+
+            result = WebDriverWait(driver, timeout=10).until(find_input)
+            print(result)
+            print(type(result))
+
+            import code
+            code.interact(local=locals())
 
             if opts.wait_infinitely:
                 WebDriverWait(driver, timeout=3600).until(lambda d: False)

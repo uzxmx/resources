@@ -8,3 +8,5 @@ Visit [here](https://github.com/golang/go/wiki/Mobile#sdk-applications-and-gener
 make android-lib
 make android-app
 ```
+
+https://github.com/nobonobo/gomobile-sample/blob/master/Makefile
