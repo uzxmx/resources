@@ -1,0 +1,2 @@
+-i _Z11printBufferP6Buffer
+-i _Z11printBufferR6Buffer

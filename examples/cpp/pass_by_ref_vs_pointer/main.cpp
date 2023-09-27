@@ -5,17 +5,26 @@ using namespace std;
 
 class Buffer {
 public:
-  Buffer(void *bytes, size_t len);
+  enum Type {
+    kSmall,
+    kMedium,
+    kLarge
+  };
+
+  Buffer(void *bytes, size_t len, Type type);
   void *GetBytes() const;
   size_t GetLen() const;
   void Print() const;
 
+  static constexpr int defaultSize = 1024;
+
 private:
   void *bytes;
   size_t len;
+  Type type;
 };
 
-Buffer::Buffer(void *bytes, size_t len) : bytes(bytes), len(len) {}
+Buffer::Buffer(void *bytes, size_t len, Type type) : bytes(bytes), len(len), type(type) {}
 
 void *Buffer::GetBytes() const {
   return this->bytes;
@@ -40,7 +49,7 @@ void printBuffer(Buffer *buf) {
 }
 
 int main() {
-  Buffer buffer = Buffer(nullptr, 256);
+  Buffer buffer = Buffer(nullptr, 256, Buffer::kMedium);
   while (true) {
     printBuffer(buffer);
     printBuffer(&buffer);

@@ -1,7 +1,7 @@
 all: main
 
 main: main.cpp
-	@g++ -g -o $@ $^
+	@clang++ -std=c++11 -g -o $@ $^
 
 lldb: main
 	@lldb --one-line "break set -n printBuffer" \
