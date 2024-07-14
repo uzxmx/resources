@@ -36,7 +36,7 @@ socat - EXEC:bash
 
 ```
 
-Accept connections at port 5000 as a shell command interpreter. Use `nc -l localhost 5000`
+Accept connections at port 5000 as a shell command interpreter. Use `nc localhost 5000`
 or `socat - TCP:localhost:5000` to connect.
 
 ```
