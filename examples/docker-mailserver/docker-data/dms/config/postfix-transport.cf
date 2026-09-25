@@ -1,0 +1,3 @@
+# 发往这些域的邮件走自定义慢速 transport(限速,避免被限频)
+qq.com     slow:
+163.com    slow:

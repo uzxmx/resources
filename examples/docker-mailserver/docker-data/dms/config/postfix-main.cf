@@ -1,0 +1,2 @@
+# 启用 transport_maps,让 postfix-transport.cf 生效(texthash 无需 postmap 编译)
+transport_maps = texthash:/tmp/docker-mailserver/postfix-transport.cf

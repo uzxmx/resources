@@ -1,0 +1,6 @@
+# 启用 Sieve extprograms,允许 Sieve 调用外部脚本(pipe)
+plugin {
+  sieve_plugins = sieve_extprograms
+  sieve_extensions = +vnd.dovecot.pipe
+  sieve_pipe_bin_dir = /tmp/docker-mailserver/sieve-pipe
+}
