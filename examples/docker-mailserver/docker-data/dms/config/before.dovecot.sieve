@@ -1,4 +1,4 @@
-require ["copy", "envelope", "variables", "enotify", "vnd.dovecot.pipe"];
+require ["copy", "envelope", "variables", "enotify", "vnd.dovecot.pipe", "editheader"];
 
 # 只处理发往 example.com 的邮件
 if envelope :domain :is "to" "example.com" {
@@ -9,14 +9,19 @@ if envelope :domain :is "to" "example.com" {
         "case-insensitive subject 2",
         "test subject 3"
     ] {
-        # 转发一份到 QQ 和 163,同时保留原件
-        redirect :copy "test@qq.com";
-        redirect :copy "test@163.com";
-
-        # 取出发件人和主题(已解码),供下面两个通知分支共用
+        # 取出发件人、主题(已解码)和原始信封收件人,供下面共用
         if header :matches "subject" "*" { set "subj" "${1}"; }
         if header :matches "from"    "*" { set "sender" "${1}"; }
         if envelope :matches "to"    "*" { set "receiver" "${1}"; }
+
+        # 把真实(信封)收件人写进邮件头,转发后即可看到原始收件人
+        # (BCC/别名/列表投递时,原始收件人只在信封、不在 To: 头,redirect 会丢失)
+        # 必须放在 redirect 之前,转发出去的副本才带着这个头
+        addheader "X-Forwarded-Original-Rcpt" "${receiver}";
+
+        # 转发一份到 QQ 和 163,同时保留原件
+        redirect :copy "test@qq.com";
+        redirect :copy "test@163.com";
 
         # 列表二:已知正常主题,命中则不发邮件通知;其余未知主题邮件通知 admin
         if not header :contains "subject" [
