@@ -26,6 +26,11 @@ services:
       - ./cert/cert.pem:/tmp/ssl/public.crt:ro
       - ./cert/key.pem:/tmp/ssl/private.key:ro
     restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     stop_grace_period: 1m
     # Uncomment if using `ENABLE_FAIL2BAN=1`:
     # cap_add:

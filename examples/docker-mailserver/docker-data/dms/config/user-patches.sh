@@ -46,3 +46,9 @@ PATCH
     echo 'user-patches: ERROR 补丁后 accounts.sh 语法错误' >&2
   fi
 fi
+
+# --- mail.log 保留一年 ---
+# _setup_logrotate 写死 rotate 4（weekly 下只有约 1 个月），这里改成 52 份 ≈ 1 年。
+# mail.info/warn/err 由 rsyslog 的 logrotate 配置管理，内容是 mail.log 的子集，保持默认 4 份。
+sed -i "s/^\([[:space:]]*\)rotate [0-9]\+$/\1rotate 52/" /etc/logrotate.d/maillog
+echo "user-patches: mail.log logrotate 保留份数设为 52"
