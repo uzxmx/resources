@@ -1,0 +1,7 @@
+[DEFAULT]
+# 本机、docker 网络，以及日常大量正常登录的客户端 IP，避免误封共享 IP 的所有用户
+ignoreip = 127.0.0.1/8
+
+[postfix]
+# 只封 SASL 登录失败；不因拒收（用户不存在、relay 被拒等）封外部邮件服务器
+mode = auth
